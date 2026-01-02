@@ -195,7 +195,12 @@ body{
   border:1px solid rgba(255,255,255,.10);
   background: rgba(255,255,255,.03);
   padding: 14px;
+
+  /* ✅ needed for image overlay */
+  position: relative;
+  overflow: hidden;
 }
+
 .mock-icon{
   width: 54px; height: 54px; border-radius: 14px;
   background: radial-gradient(circle at 40% 40%, rgba(122,163,255,.75), rgba(79,124,255,.20));
@@ -214,6 +219,16 @@ body{
   border-radius: 12px;
   border:1px solid rgba(255,255,255,.10);
   background: rgba(255,255,255,.04);
+}
+
+/* ✅ NEW: preview image fills the mock screen */
+.ui-preview-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
 }
 
 .card{
@@ -269,7 +284,6 @@ input:focus{ border-color: rgba(79,124,255,.65); box-shadow: 0 0 0 3px rgba(79,1
 @media (max-width: 900px){
   .grid{ grid-template-columns:1fr; }
 }
-
 .panel{
   padding: 14px;
   border-radius: 16px;
@@ -281,13 +295,166 @@ input:focus{ border-color: rgba(79,124,255,.65); box-shadow: 0 0 0 3px rgba(79,1
 .row{ display:flex; gap:10px; align-items:center; }
 .row input{
   flex:1;
-  min-width: 0; /* ✅ FIX: prevents overflow into the next panel */
+  min-width:0; /* ✅ prevents Search button overflow into delivery panel */
 }
-.row input{
-  flex:1;
-  min-width:0;
-}
-
-
-
 .inline{ display:grid; gap:8px; }
+
+/* Phase 1: search results + details (matches existing style) */
+.result-list{
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.result-item{
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: var(--txt);
+  cursor: pointer;
+}
+.result-item:hover{
+  background: rgba(255,255,255,.06);
+}
+
+.result-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.badge{
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.badge.out{
+  border-color: rgba(255,80,80,.35);
+  color: rgba(255,170,170,.95);
+}
+
+.med-details{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+}
+.med-details h4{
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+.med-details .muted-line{
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+/* =========================
+   Phase 2 + 3 UI blocks
+   ========================= */
+
+/* Search results + details */
+.result-list{
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.result-item{
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: var(--txt);
+  cursor: pointer;
+}
+.result-item:hover{ background: rgba(255,255,255,.06); }
+
+.result-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.badge{
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.badge.out{
+  border-color: rgba(255,80,80,.35);
+  color: rgba(255,170,170,.95);
+}
+
+.med-details{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+}
+.med-details h4{ margin: 0 0 8px; font-size: 15px; }
+.med-details .muted-line{ margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+/* Order list cards */
+.order-list{
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+.order-card{
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+}
+.order-card .rowline{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  flex-wrap: wrap;
+}
+.small-muted{ color: var(--muted); font-size: 12px; }
+
+.select{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.20);
+  color: var(--txt);
+  outline:none;
+}
+
+/* UI preview image */
+.mock-screen{
+  position: relative;
+  overflow: hidden;
+}
+.ui-preview-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+/* Keep the overflow fix so buttons don't jump into other panel */
+.row input{ flex:1; min-width:0; }
+

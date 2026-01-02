@@ -1,0 +1,22 @@
+[
+  {"id":"MED001","name":"Paracetamol","strength":"500mg","form":"Tablet","price":10,"stock":120,"manufacturer":"Beximco"},
+  {"id":"MED002","name":"Napa","strength":"500mg","form":"Tablet","price":6,"stock":85,"manufacturer":"Beximco"},
+  {"id":"MED003","name":"Napa Extra","strength":"500mg+65mg","form":"Tablet","price":12,"stock":0,"manufacturer":"Beximco"},
+  {"id":"MED004","name":"Cetirizine","strength":"10mg","form":"Tablet","price":8,"stock":60,"manufacturer":"Square"},
+  {"id":"MED005","name":"Fexofenadine","strength":"120mg","form":"Tablet","price":18,"stock":42,"manufacturer":"Incepta"},
+  {"id":"MED006","name":"Omeprazole","strength":"20mg","form":"Capsule","price":12,"stock":54,"manufacturer":"Square"},
+  {"id":"MED007","name":"Esomeprazole","strength":"20mg","form":"Capsule","price":20,"stock":36,"manufacturer":"Incepta"},
+  {"id":"MED008","name":"Pantoprazole","strength":"20mg","form":"Tablet","price":16,"stock":31,"manufacturer":"ACI"},
+  {"id":"MED009","name":"Azithromycin","strength":"500mg","form":"Tablet","price":35,"stock":20,"manufacturer":"Renata"},
+  {"id":"MED010","name":"Amoxicillin","strength":"500mg","form":"Capsule","price":22,"stock":0,"manufacturer":"Square"},
+  {"id":"MED011","name":"Metformin","strength":"500mg","form":"Tablet","price":7,"stock":110,"manufacturer":"Square"},
+  {"id":"MED012","name":"Amlodipine","strength":"5mg","form":"Tablet","price":6,"stock":74,"manufacturer":"Incepta"},
+  {"id":"MED013","name":"Losartan","strength":"50mg","form":"Tablet","price":9,"stock":65,"manufacturer":"ACI"},
+  {"id":"MED014","name":"Atorvastatin","strength":"10mg","form":"Tablet","price":12,"stock":40,"manufacturer":"Square"},
+  {"id":"MED015","name":"Vitamin C","strength":"500mg","form":"Tablet","price":15,"stock":95,"manufacturer":"Renata"},
+  {"id":"MED016","name":"Zinc","strength":"20mg","form":"Tablet","price":10,"stock":80,"manufacturer":"ACI"},
+  {"id":"MED017","name":"ORS","strength":"Standard","form":"Sachet","price":10,"stock":150,"manufacturer":"Local"},
+  {"id":"MED018","name":"Salbutamol","strength":"2mg","form":"Tablet","price":6,"stock":33,"manufacturer":"Square"},
+  {"id":"MED019","name":"Montelukast","strength":"10mg","form":"Tablet","price":18,"stock":27,"manufacturer":"Incepta"},
+  {"id":"MED020","name":"Diclofenac","strength":"50mg","form":"Tablet","price":8,"stock":58,"manufacturer":"Square"}
+]

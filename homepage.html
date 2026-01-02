@@ -37,19 +37,19 @@
         <div class="hero-left">
           <h1>E-Pharmacy<br/>Management<br/>System</h1>
           <p class="muted">
-            An online platform for ordering medicines, uploading prescriptions, and managing pharmacy operations.
+            An online platform for ordering medicines and managing pharmacy operations.
           </p>
 
           <div class="hero-actions">
-            <!-- ✅ will be hidden after login -->
+            <!-- Not logged in: visible -->
             <button id="homeGetStartedBtn" class="btn btn-primary" data-link="#register">Get Started</button>
 
-            <!-- ✅ will be shown only after login -->
+            <!-- Logged in: visible -->
             <button id="homeDashboardBtn" class="btn btn-ghost hidden" data-link="#dashboard">
               Dashboard
             </button>
 
-            <!-- always visible -->
+            <!-- Always visible -->
             <button class="btn btn-ghost" data-link="#features">Learn More</button>
           </div>
 
@@ -58,11 +58,10 @@
             <ul>
               <li>Search medicines easily.</li>
               <li>Register and log in securely.</li>
-              <li>Upload prescription.</li>
-              <li>Add medicines to cart and place orders.</li>
+              <li>Place orders (request flow).</li>
               <li>Provide delivery details.</li>
-              <li>Delivery team sees order info.</li>
-              <li>Admins manage stock.</li>
+              <li>Delivery team sees assigned orders.</li>
+              <li>Admins manage stock & orders.</li>
             </ul>
           </div>
         </div>
@@ -73,18 +72,23 @@
               <div class="mock-avatar"></div>
               <div class="mock-pill"></div>
             </div>
+
             <div class="mock-phone">
               <div class="mock-screen">
-                <div class="mock-icon"></div>
-                <div class="mock-line"></div>
-                <div class="mock-line small"></div>
-                <div class="mock-row">
-                  <div class="mock-chip"></div>
-                  <div class="mock-chip"></div>
-                  <div class="mock-chip"></div>
+                <img id="uiPreviewImg" class="ui-preview-img hidden" alt="UI preview image" />
+                <div id="uiPreviewPlaceholders">
+                  <div class="mock-icon"></div>
+                  <div class="mock-line"></div>
+                  <div class="mock-line small"></div>
+                  <div class="mock-row">
+                    <div class="mock-chip"></div>
+                    <div class="mock-chip"></div>
+                    <div class="mock-chip"></div>
+                  </div>
                 </div>
               </div>
             </div>
+
             <p class="muted tiny">UI preview (demo)</p>
           </div>
         </div>
@@ -139,6 +143,13 @@
           </label>
 
           <button class="btn btn-primary" type="submit">Login</button>
+
+          <p class="muted tiny" style="margin-top:10px;">
+            Demo accounts (Phase 3):
+            <br/>Admin: <b>admin@epharmacy.com</b> / <b>Admin123</b>
+            <br/>Delivery: <b>delivery@epharmacy.com</b> / <b>Delivery123</b>
+          </p>
+
           <p class="muted tiny">
             No account? <a href="#register" data-link>Create one</a>
           </p>
@@ -150,20 +161,25 @@
     <section id="page-dashboard" class="page hidden">
       <div class="card">
         <h2>Dashboard</h2>
-        <p class="muted">Search medicines and provide delivery details.</p>
+        <p class="muted">Search medicines, place orders, and manage deliveries (role-based).</p>
 
         <div class="grid">
+
+          <!-- Search + Order Request -->
           <div class="panel">
             <h3>Search Medicines</h3>
             <div class="row">
               <input id="searchInput" type="text" placeholder="Type medicine name..." />
               <button id="searchBtn" class="btn btn-ghost" type="button">Search</button>
             </div>
-            <div id="searchResults" class="muted tiny"></div>
+
+            <div id="searchResults" class="result-list"></div>
+            <div id="medDetails" class="med-details hidden"></div>
           </div>
 
+          <!-- Delivery details -->
           <div class="panel">
-            <h3>Delivery Details (demo)</h3>
+            <h3>Delivery Details</h3>
             <label class="inline">
               Address
               <input id="addressInput" type="text" placeholder="House/Road/Area..." />
@@ -171,6 +187,27 @@
             <button id="saveAddressBtn" class="btn btn-ghost" type="button">Save</button>
             <div id="addressStatus" class="muted tiny"></div>
           </div>
+
+          <!-- My Orders (Customer + everyone can view own orders) -->
+          <div class="panel">
+            <h3>My Orders</h3>
+            <div id="myOrdersBox" class="muted tiny">No orders yet.</div>
+          </div>
+
+          <!-- Admin Panel -->
+          <div id="adminPanel" class="panel hidden">
+            <h3>Admin: Manage Orders</h3>
+            <div class="muted tiny">Approve/Reject/Ship, assign delivery, update stock from medicine details.</div>
+            <div id="adminOrdersBox" class="order-list"></div>
+          </div>
+
+          <!-- Delivery Panel -->
+          <div id="deliveryPanel" class="panel hidden">
+            <h3>Delivery: Assigned Orders</h3>
+            <div class="muted tiny">Update delivery status for assigned orders.</div>
+            <div id="deliveryOrdersBox" class="order-list"></div>
+          </div>
+
         </div>
       </div>
     </section>
