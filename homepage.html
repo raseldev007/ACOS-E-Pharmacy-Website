@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E-Pharmacy</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header class="topbar">
+    <div class="brand" data-link="#home">
+      <span class="dot"></span>
+      <span class="brand-text">E-Pharmacy</span>
+    </div>
+
+    <nav class="navlinks">
+      <a href="#home" data-link>Home</a>
+      <a href="#about" data-link>About</a>
+      <a href="#features" data-link>Features</a>
+      <a href="#contact" data-link>Contact</a>
+    </nav>
+
+    <div class="auth-area">
+      <span id="userBadge" class="user-badge hidden"></span>
+      <button id="btnLogin" class="btn btn-ghost" data-link="#login">Login</button>
+      <button id="btnLogout" class="btn btn-ghost hidden">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HOME -->
+    <section id="page-home" class="page">
+      <div class="hero">
+        <div class="hero-left">
+          <h1>E-Pharmacy<br/>Management<br/>System</h1>
+          <p class="muted">
+            An online platform for ordering medicines, uploading prescriptions, and managing pharmacy operations.
+          </p>
+
+          <div class="hero-actions">
+            <!-- ✅ will be hidden after login -->
+            <button id="homeGetStartedBtn" class="btn btn-primary" data-link="#register">Get Started</button>
+
+            <!-- ✅ will be shown only after login -->
+            <button id="homeDashboardBtn" class="btn btn-ghost hidden" data-link="#dashboard">
+              Dashboard
+            </button>
+
+            <!-- always visible -->
+            <button class="btn btn-ghost" data-link="#features">Learn More</button>
+          </div>
+
+          <div class="feature-list">
+            <h3>Key Features</h3>
+            <ul>
+              <li>Search medicines easily.</li>
+              <li>Register and log in securely.</li>
+              <li>Upload prescription.</li>
+              <li>Add medicines to cart and place orders.</li>
+              <li>Provide delivery details.</li>
+              <li>Delivery team sees order info.</li>
+              <li>Admins manage stock.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="mock-card">
+            <div class="mock-top">
+              <div class="mock-avatar"></div>
+              <div class="mock-pill"></div>
+            </div>
+            <div class="mock-phone">
+              <div class="mock-screen">
+                <div class="mock-icon"></div>
+                <div class="mock-line"></div>
+                <div class="mock-line small"></div>
+                <div class="mock-row">
+                  <div class="mock-chip"></div>
+                  <div class="mock-chip"></div>
+                  <div class="mock-chip"></div>
+                </div>
+              </div>
+            </div>
+            <p class="muted tiny">UI preview (demo)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="page-register" class="page hidden">
+      <div class="card">
+        <h2>Create account</h2>
+        <p class="muted">Demo registration stored in your browser (localStorage).</p>
+
+        <form id="registerForm" class="form">
+          <label>
+            Full name
+            <input type="text" name="name" required minlength="2" />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            Password
+            <input type="password" name="password" required minlength="6" />
+          </label>
+
+          <button class="btn btn-primary" type="submit">Register</button>
+          <p class="muted tiny">
+            Already have an account? <a href="#login" data-link>Login</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="page-login" class="page hidden">
+      <div class="card">
+        <h2>Login</h2>
+        <p class="muted">Use the email + password you registered.</p>
+
+        <form id="loginForm" class="form">
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            Password
+            <input type="password" name="password" required />
+          </label>
+
+          <button class="btn btn-primary" type="submit">Login</button>
+          <p class="muted tiny">
+            No account? <a href="#register" data-link>Create one</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page hidden">
+      <div class="card">
+        <h2>Dashboard</h2>
+        <p class="muted">Search medicines and provide delivery details.</p>
+
+        <div class="grid">
+          <div class="panel">
+            <h3>Search Medicines</h3>
+            <div class="row">
+              <input id="searchInput" type="text" placeholder="Type medicine name..." />
+              <button id="searchBtn" class="btn btn-ghost" type="button">Search</button>
+            </div>
+            <div id="searchResults" class="muted tiny"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Delivery Details (demo)</h3>
+            <label class="inline">
+              Address
+              <input id="addressInput" type="text" placeholder="House/Road/Area..." />
+            </label>
+            <button id="saveAddressBtn" class="btn btn-ghost" type="button">Save</button>
+            <div id="addressStatus" class="muted tiny"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT/FEATURES/CONTACT -->
+    <section id="page-about" class="page hidden">
+      <div class="card"><h2>About</h2><p class="muted">Write your project description here.</p></div>
+    </section>
+
+    <section id="page-features" class="page hidden">
+      <div class="card"><h2>Features</h2><p class="muted">List all features with screenshots and short explanation.</p></div>
+    </section>
+
+    <section id="page-contact" class="page hidden">
+      <div class="card">
+        <h2>Contact</h2>
+        <p class="muted">You can reach us using the information below.</p>
+
+        <div class="panel" style="margin-top:14px;">
+          <p style="margin:0; font-size:16px; font-weight:700;">Md Ahad Hasan Emon</p>
+          <p class="muted" style="margin:6px 0 0;">Pharmacist, Dhaka</p>
+          <p class="muted" style="margin:6px 0 0;">Mobile: 01700000000</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span class="muted tiny">E-Pharmacy Web App • HTML/CSS/JS Demo</span>
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
