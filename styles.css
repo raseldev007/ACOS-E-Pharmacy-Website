@@ -818,6 +818,35 @@ input::placeholder {
   gap: 24px;
 }
 
+/* RESPONSIVE GRID OVERRIDES */
+.about-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.features-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.contact-grid {
+  grid-template-columns: 1fr 1.2fr;
+}
+
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .about-grid,
+  .features-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* SPECIFIC PANELS */
 .panel {
   background: var(--bg-surface);
