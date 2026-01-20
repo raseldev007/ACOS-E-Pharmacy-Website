@@ -1,31 +1,58 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E-Pharmacy</title>
+  <title>ACOS E-Pharmacy</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin_styles.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      // https://dashboard.emailjs.com/admin/account
+      // We will initialize this in app.js or here once keys are provided
+      // emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
+    })();
+  </script>
 </head>
+
 <body>
   <div class="bg-glow"></div>
 
   <header class="topbar">
     <div class="brand" data-link="#home">
-      <span class="dot"></span>
-      <span class="brand-text">E-Pharmacy</span>
+      <img src="logo.png" alt="Logo" class="brand-logo" />
+      <span class="brand-text">ACOS E-Pharmacy</span>
     </div>
 
-    <nav class="navlinks">
+    <nav class="navlinks" id="navLinks">
       <a href="#home" data-link>Home</a>
       <a href="#about" data-link>About</a>
       <a href="#features" data-link>Features</a>
       <a href="#contact" data-link>Contact</a>
+      <!-- Mirrored Auth Links for Mobile -->
+      <a href="#dashboard" id="mobDashboard" class="mobile-nav-only hidden" data-link>Dashboard</a>
+      <a href="#login" id="mobLogin" class="mobile-nav-only" data-link>Login</a>
+      <a href="#" id="mobLogout" class="mobile-nav-only hidden">Logout</a>
     </nav>
 
     <div class="auth-area">
+      <button id="navDashboard" class="btn btn-ghost hidden" data-link="#dashboard"
+        style="margin-right:8px;">Dashboard</button>
+      <button id="navManageUsers" class="btn btn-ghost hidden" data-tab-link="users" style="margin-right:8px;">Manage
+        Users</button>
+      <button id="btnCart" class="btn btn-ghost" style="position:relative; margin-right:8px;">
+        Cart <span id="cartBadge" class="badge-dot hidden"></span>
+      </button>
       <span id="userBadge" class="user-badge hidden"></span>
-      <button id="btnLogin" class="btn btn-ghost" data-link="#login">Login</button>
+      <button id="btnLogin" class="btn btn-primary" data-link="#login">Login</button>
       <button id="btnLogout" class="btn btn-ghost hidden">Logout</button>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="btnMenuToggle" class="btn btn-ghost menu-toggle">
+        <span class="menu-icon"></span>
+      </button>
     </div>
   </header>
 
@@ -34,63 +61,41 @@
     <!-- HOME -->
     <section id="page-home" class="page">
       <div class="hero">
-        <div class="hero-left">
-          <h1>E-Pharmacy<br/>Management<br/>System</h1>
-          <p class="muted">
-            An online platform for ordering medicines and managing pharmacy operations.
-          </p>
+        <span class="badge" style="margin-bottom:16px;">E-Pharmacy Service</span>
+        <h1>Medicine Delivery, Simplified.</h1>
+        <p class="muted">
+          Order medicines from the comfort of your home. Genuine products, fast delivery.
+        </p>
 
-          <div class="hero-actions">
-            <!-- Not logged in: visible -->
-            <button id="homeGetStartedBtn" class="btn btn-primary" data-link="#register">Get Started</button>
-
-            <!-- Logged in: visible -->
-            <button id="homeDashboardBtn" class="btn btn-ghost hidden" data-link="#dashboard">
-              Dashboard
-            </button>
-
-            <!-- Always visible -->
-            <button class="btn btn-ghost" data-link="#features">Learn More</button>
-          </div>
-
-          <div class="feature-list">
-            <h3>Key Features</h3>
-            <ul>
-              <li>Search medicines easily.</li>
-              <li>Register and log in securely.</li>
-              <li>Place orders (request flow).</li>
-              <li>Provide delivery details.</li>
-              <li>Delivery team sees assigned orders.</li>
-              <li>Admins manage stock & orders.</li>
-            </ul>
-          </div>
+        <div class="search-container">
+          <input id="heroSearchInput" class="search-box" type="text"
+            placeholder="Search for medicines (e.g. Napa, Paracetamol)..." />
+          <button id="heroSearchBtn" class="btn btn-primary search-btn-hero">Search</button>
         </div>
 
-        <div class="hero-right">
-          <div class="mock-card">
-            <div class="mock-top">
-              <div class="mock-avatar"></div>
-              <div class="mock-pill"></div>
-            </div>
+        <div class="cat-grid">
+          <!-- Categories (Static for now) -->
+          <div class="cat-item">Baby Care</div>
+          <div class="cat-item">Personal Care</div>
+          <div class="cat-item">Prescription</div>
+          <div class="cat-item">Supplements</div>
+          <div class="cat-item">Sexual Wellness</div>
+        </div>
+      </div>
 
-            <div class="mock-phone">
-              <div class="mock-screen">
-                <img id="uiPreviewImg" class="ui-preview-img hidden" alt="UI preview image" />
-                <div id="uiPreviewPlaceholders">
-                  <div class="mock-icon"></div>
-                  <div class="mock-line"></div>
-                  <div class="mock-line small"></div>
-                  <div class="mock-row">
-                    <div class="mock-chip"></div>
-                    <div class="mock-chip"></div>
-                    <div class="mock-chip"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!-- Results Area (Moved to Home for MedEasy feel) -->
+      <div id="homeResultsArea" class="hidden">
+        <h3>Search Results</h3>
+        <div id="homeSearchResults" class="result-list"></div>
+      </div>
 
-            <p class="muted tiny">UI preview (demo)</p>
-          </div>
+      <!-- Featured (Static mock) -->
+      <!-- Featured -->
+      <div style="margin-top:40px;">
+        <h3 style="margin-bottom:20px;">Top Selling Products</h3>
+        <div id="topSellingGrid"
+          style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:16px;">
+          <div class="muted tiny">Loading...</div>
         </div>
       </div>
     </section>
@@ -99,7 +104,7 @@
     <section id="page-register" class="page hidden">
       <div class="card">
         <h2>Create account</h2>
-        <p class="muted">Demo registration stored in your browser (localStorage).</p>
+        <p class="muted">Your registration will be securely stored in your browser.</p>
 
         <form id="registerForm" class="form">
           <label>
@@ -126,34 +131,59 @@
     </section>
 
     <!-- LOGIN -->
-    <section id="page-login" class="page hidden">
-      <div class="card">
-        <h2>Login</h2>
-        <p class="muted">Use the email + password you registered.</p>
+    <section id="page-login" class="page hidden no-padding-page">
+      <div class="login-split-container">
+        <!-- Brand/Hero Side -->
+        <div class="login-brand-side">
+          <div class="login-brand-content">
+            <div class="login-brand-logo-wrapper">
+              <img src="logo.png" alt="Logo" class="login-hero-logo" />
+            </div>
+            <h1 class="premium-title">ACOS E-Pharmacy</h1>
+            <p class="premium-subtitle">Your trusted partner in healthcare, delivered with care and precision.</p>
+            <div class="floating-shapes">
+              <div class="shape s1"></div>
+              <div class="shape s2"></div>
+              <div class="shape s3"></div>
+            </div>
+          </div>
+        </div>
 
-        <form id="loginForm" class="form">
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
+        <!-- Form Side -->
+        <div class="login-form-side">
+          <div class="login-card-premium">
+            <div class="login-header-centered">
+              <h2>Login</h2>
+              <p class="muted">Use Your Registered Gmail/Email and Password to Login Your account.</p>
+            </div>
 
-          <label>
-            Password
-            <input type="password" name="password" required />
-          </label>
+            <form id="loginForm" class="form premium-form">
+              <div class="input-group-premium">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="e.g. name@gmail.com" required />
+              </div>
 
-          <button class="btn btn-primary" type="submit">Login</button>
+              <div class="input-group-premium">
+                <label>Password</label>
+                <div class="password-wrapper-premium">
+                  <input type="password" name="password" id="loginPassword" placeholder="••••••••" required />
+                  <span id="togglePassword" class="toggle-password-premium" title="Show Password">👁️</span>
+                </div>
+              </div>
 
-          <p class="muted tiny" style="margin-top:10px;">
-            Demo accounts (Phase 3):
-            <br/>Admin: <b>admin@epharmacy.com</b> / <b>Admin123</b>
-            <br/>Delivery: <b>delivery@epharmacy.com</b> / <b>Delivery123</b>
-          </p>
+              <button class="btn btn-primary btn-premium-login" type="submit">
+                <span>Sign In</span>
+                <div class="btn-glow"></div>
+              </button>
+            </form>
 
-          <p class="muted tiny">
-            No account? <a href="#register" data-link>Create one</a>
-          </p>
-        </form>
+            <div class="login-footer-centered">
+              <p class="muted tiny">
+                No account? <a href="#register" data-link class="premium-link">Create one</a>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -165,20 +195,60 @@
 
         <div class="grid">
 
-          <!-- Search + Order Request -->
+          <!-- My Profile Panel -->
           <div class="panel">
+            <h3>My Profile</h3>
+            <form id="profileForm" class="form" style="max-width:100%;">
+              <label>
+                Name
+                <input type="text" id="prof-name" placeholder="Your Name" required />
+              </label>
+              <label>
+                Email (ID)
+                <input type="email" id="prof-email" readonly disabled style="opacity:0.6; cursor:not-allowed;" />
+              </label>
+              <label>
+                Phone
+                <input type="tel" id="prof-phone" placeholder="01XXXXXXXXX" />
+              </label>
+              <label>
+                Address
+                <input type="text" id="prof-address" placeholder="House/Road/Area..." />
+              </label>
+              <button class="btn btn-primary" type="submit" id="btnSaveProfile">Save Profile</button>
+            </form>
+          </div>
+
+          <!-- Search + Order Request -->
+          <div id="panel-search" class="panel">
             <h3>Search Medicines</h3>
             <div class="row">
               <input id="searchInput" type="text" placeholder="Type medicine name..." />
               <button id="searchBtn" class="btn btn-ghost" type="button">Search</button>
             </div>
 
-            <div id="searchResults" class="result-list"></div>
+            <!-- Prescription Upload Section -->
+            <div class="prescription-upload-area">
+              <div id="prescriptionDropZone" class="upload-drop-zone">
+                <div class="upload-icon">📄</div>
+                <p class="tiny">Search by Uploading Prescription</p>
+                <button type="button" id="btnBrowsePrescription" class="btn btn-ghost btn-xs">Browse Image</button>
+                <input type="file" id="prescriptionInput" accept="image/*" class="hidden" />
+              </div>
+
+              <!-- Scanning Animation Overlay (Hidden by default) -->
+              <div id="scanningOverlay" class="scanning-overlay hidden">
+                <div class="laser-line"></div>
+                <div class="scanning-text">Analyzing Prescription...</div>
+              </div>
+            </div>
+
+            <div id="dashboardSearchResults" class="result-list"></div>
             <div id="medDetails" class="med-details hidden"></div>
           </div>
 
           <!-- Delivery details -->
-          <div class="panel">
+          <div id="panel-delivery" class="panel">
             <h3>Delivery Details</h3>
             <label class="inline">
               Address
@@ -189,47 +259,345 @@
           </div>
 
           <!-- My Orders (Customer + everyone can view own orders) -->
-          <div class="panel">
+          <div id="panel-myorders" class="panel">
             <h3>My Orders</h3>
             <div id="myOrdersBox" class="muted tiny">No orders yet.</div>
           </div>
 
-          <!-- Admin Panel -->
-          <div id="adminPanel" class="panel hidden">
-            <h3>Admin: Manage Orders</h3>
-            <div class="muted tiny">Approve/Reject/Ship, assign delivery, update stock from medicine details.</div>
-            <div id="adminOrdersBox" class="order-list"></div>
-          </div>
+          <!-- Admin Panel (Redesigned) -->
+          <div id="adminPanel" class="panel hidden admin-dashboard-panel">
 
-          <!-- Delivery Panel -->
-          <div id="deliveryPanel" class="panel hidden">
-            <h3>Delivery: Assigned Orders</h3>
-            <div class="muted tiny">Update delivery status for assigned orders.</div>
-            <div id="deliveryOrdersBox" class="order-list"></div>
-          </div>
+            <!-- Admin Navigation Tabs -->
+            <div class="admin-tabs">
+              <button class="admin-tab-btn active" data-tab="dashboard">
+                📊 Dashboard
+              </button>
+              <button class="admin-tab-btn" data-tab="users">
+                👥 Manage Users
+              </button>
+            </div>
 
+            <!-- VIEW 1: Dashboard (Default) -->
+            <div id="adminDashboardView">
+              <!-- 1. Stats Row -->
+              <div id="adminStats" class="admin-stats-grid"></div>
+
+              <!-- 2. Main Content Grid -->
+              <div class="admin-content-grid">
+
+                <!-- Left: Order Management -->
+                <div class="admin-card-section">
+                  <div class="admin-header-row">
+                    <h4>Order Management</h4>
+                    <!-- Filter container (will be injected by JS) -->
+                  </div>
+                  <div id="adminOrdersBox"></div>
+                </div>
+
+                <!-- Right: Sidebar (Inventory & Logs) -->
+                <div style="display:flex; flex-direction:column; gap:20px;">
+
+                  <!-- Inventory -->
+                  <div class="admin-card-section">
+                    <h4>Inventory</h4>
+                    <form id="adminInventoryForm" class="form" style="max-width:100%;">
+                      <div style="display:flex; flex-direction:column; gap:10px;">
+                        <input type="text" id="inv-name" placeholder="Medicine Name" required
+                          style="background:rgba(0,0,0,0.2);" />
+                        <div class="row" style="gap:8px;">
+                          <input type="number" id="inv-price" placeholder="Price" required min="1"
+                            style="background:rgba(0,0,0,0.2);" />
+                          <input type="number" id="inv-stock" placeholder="Qty" required min="1"
+                            style="background:rgba(0,0,0,0.2);" />
+                        </div>
+                        <select id="inv-cat" style="background:rgba(0,0,0,0.2);">
+                          <option value="General">General</option>
+                          <option value="Baby Care">Baby Care</option>
+                          <option value="Personal Care">Personal</option>
+                          <option value="Prescription">Prescription</option>
+                          <option value="Supplements">Supplements</option>
+                          <option value="Sexual Wellness">Wellness</option>
+                        </select>
+                        <button class="btn btn-primary" type="submit" style="width:100%; margin-top:5px;">Add
+                          Item</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Logs -->
+                  <div class="admin-card-section" style="flex:1;">
+                    <h4>Activity Log</h4>
+                    <div id="adminActivityBox" style="max-height:400px; overflow-y:auto; overflow-x:hidden;">
+                      <div class="muted tiny">Loading...</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div> <!-- End adminDashboardView -->
+
+            <!-- VIEW 2: User Management (Hidden) -->
+            <div id="adminUsersView" class="hidden">
+              <div class="admin-header-row">
+                <h4>Registered Users</h4>
+                <div class="muted tiny">Manage user access and accounts</div>
+              </div>
+              <div class="admin-card-section">
+                <div id="adminUserList" class="user-list-grid">
+                  <div class="muted">Loading users...</div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+    </section>
+
+    <!-- Cart Page -->
+    <section id="page-cart" class="page hidden">
+      <div class="container" style="max-width:800px;">
+        <h2>Your Cart</h2>
+        <div class="card">
+          <div id="cartItems" class="cart-list"></div>
+          <div class="cart-footer rowline">
+            <div style="font-size:18px; font-weight:700;">Total: <span id="cartTotal">0</span></div>
+            <button id="btnCheckout" class="btn btn-primary" data-link="#checkout">Proceed to Checkout</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checkout Page -->
+    <section id="page-checkout" class="page hidden">
+      <div class="container" style="max-width:600px;">
+        <h2>Checkout</h2>
+        <div class="card">
+          <form id="paymentForm" class="form">
+            <h3>Payment Method</h3>
+
+            <div class="pay-options">
+              <label class="pay-card selected" id="opt-bkash">
+                <input type="radio" name="payment" value="bkash" checked>
+                <span class="icon">
+                  <img src="assets/payments/bkash.png" alt="Bkash" class="pay-logo">
+                </span>
+                <span class="lbl">Bkash</span>
+              </label>
+
+              <label class="pay-card" id="opt-rocket">
+                <input type="radio" name="payment" value="rocket">
+                <span class="icon">
+                  <img src="assets/payments/rocket.png" alt="Rocket" class="pay-logo">
+                </span>
+                <span class="lbl">Rocket</span>
+              </label>
+
+              <label class="pay-card" id="opt-nagad">
+                <input type="radio" name="payment" value="nagad">
+                <span class="icon">
+                  <img src="assets/payments/nagad.jpg" alt="Nagad" class="pay-logo">
+                </span>
+                <span class="lbl">Nagad</span>
+              </label>
+
+              <label class="pay-card" id="opt-cod">
+                <input type="radio" name="payment" value="cod">
+                <span class="icon">
+                  <img src="assets/payments/cod.svg" alt="COD" class="pay-logo">
+                </span>
+                <span class="lbl">COD</span>
+              </label>
+            </div>
+
+            <div class="pay-details-area">
+              <!-- BKASH -->
+              <div id="pay-bkash-fields">
+                <label>Bkash Wallet Number</label>
+                <input type="text" id="inp-bkash-num" class="input-glow" placeholder="01XXXXXXXXX" maxlength="11">
+                <label style="margin-top:10px;">Transaction ID</label>
+                <input type="text" id="inp-bkash-trx" class="input-glow" placeholder="e.g. 9G7HG65F">
+                <div class="tiny muted" style="margin-top:5px;">Send money to: <b>01700000000</b> (Personal)</div>
+              </div>
+
+              <!-- ROCKET -->
+              <div id="pay-rocket-fields" class="hidden">
+                <label>Rocket Number</label>
+                <input type="text" id="inp-rocket-num" class="input-glow" placeholder="01XXXXXXXXX" maxlength="12">
+                <label style="margin-top:10px;">Transaction ID</label>
+                <input type="text" id="inp-rocket-trx" class="input-glow" placeholder="TrxID">
+                <div class="tiny muted" style="margin-top:5px;">Send money to: <b>01700000000</b> (Personal)</div>
+              </div>
+
+              <!-- NAGAD -->
+              <div id="pay-nagad-fields" class="hidden">
+                <label>Nagad Number</label>
+                <input type="text" id="inp-nagad-num" class="input-glow" placeholder="01XXXXXXXXX" maxlength="11">
+                <label style="margin-top:10px;">Transaction ID</label>
+                <input type="text" id="inp-nagad-trx" class="input-glow" placeholder="TrxID">
+                <div class="tiny muted" style="margin-top:5px;">Send money to: <b>01700000000</b> (Personal)</div>
+              </div>
+
+              <!-- COD -->
+              <div id="pay-cod-fields" class="hidden">
+                <div class="info-box">
+                  Payment will be collected by the rider upon delivery.
+                </div>
+              </div>
+            </div>
+
+            <!-- Hidden input for app.js compatibility if needed, or we update app.js -->
+            <input type="hidden" name="payDetails" id="legacyPayDetails" value="Card Payment">
+
+            <button type="submit" class="btn btn-primary"
+              style="width:100%; margin-top:24px; font-size:16px; padding:14px;">
+              Confirm Order
+            </button>
+          </form>
         </div>
       </div>
     </section>
 
     <!-- ABOUT/FEATURES/CONTACT -->
     <section id="page-about" class="page hidden">
-      <div class="card"><h2>About</h2><p class="muted">Write your project description here.</p></div>
+      <div class="card">
+        <div style="text-align:center; max-width:700px; margin:0 auto;">
+          <span class="badge" style="margin-bottom:12px;">Who We Are</span>
+          <h2 style="font-size:32px; margin-bottom:16px;">Your Trusted Healthcare Partner</h2>
+          <p class="muted" style="font-size:18px; line-height:1.7;">
+            We are dedicated to making healthcare accessible, affordable, and hassle-free for everyone.
+            Our digital pharmacy service connects you directly with genuine medicine manufacturers and verified
+            pharmacists,
+            ensuring that you get the best care right at your doorstep.
+          </p>
+        </div>
+
+        <div class="grid" style="margin-top:50px; text-align:center;">
+          <div class="panel">
+            <h3 style="color:var(--primary);">Our Mission</h3>
+            <p class="muted tiny">To simplify medicine delivery through technology and trust.</p>
+          </div>
+          <div class="panel">
+            <h3 style="color:var(--secondary);">Our Vision</h3>
+            <p class="muted tiny">A healthier nation where quality care is just a click away.</p>
+          </div>
+          <div class="panel">
+            <h3 style="color:var(--accent-green);">Our Values</h3>
+            <p class="muted tiny">Integrity, Safety, and unparalleled Customer Service.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="page-features" class="page hidden">
-      <div class="card"><h2>Features</h2><p class="muted">List all features with screenshots and short explanation.</p></div>
+      <div class="card">
+        <div style="text-align:center; margin-bottom:40px;">
+          <h2>Why Choose Us?</h2>
+          <p class="muted">Experience the future of pharmacy with our premium services.</p>
+        </div>
+
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+          <!-- Feature 1 -->
+          <div class="panel" style="text-align:center;">
+            <div style="font-size:40px; margin-bottom:16px;">🚀</div>
+            <h3>Super Fast Delivery</h3>
+            <p class="muted tiny">Get your essential medicines delivered to your door within 2-4 hours inside Dhaka
+              city.</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="panel" style="text-align:center;">
+            <div style="font-size:40px; margin-bottom:16px;">🛡️</div>
+            <h3>100% Genuine Medicine</h3>
+            <p class="muted tiny">We source directly from licensed manufacturers. No compromise on quality or safety.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="panel" style="text-align:center;">
+            <div style="font-size:40px; margin-bottom:16px;">💊</div>
+            <h3>Expert Pharmacists</h3>
+            <p class="muted tiny">Have questions? Our A-Grade pharmacists are available to answer your queries 24/7.</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="panel" style="text-align:center;">
+            <div style="font-size:40px; margin-bottom:16px;">📱</div>
+            <h3>Easy Prescription Upload</h3>
+            <p class="muted tiny">Just snap a photo of your prescription and let us handle the rest. It's that simple.
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="panel" style="text-align:center;">
+            <div style="font-size:40px; margin-bottom:16px;">💳</div>
+            <h3>Secure Payments</h3>
+            <p class="muted tiny">Pay safely using Bkash, Rocket, Nagad, or Cash on Delivery. Your data is encrypted.
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="panel" style="text-align:center;">
+            <div style="font-size:40px; margin-bottom:16px;">🕒</div>
+            <h3>24/7 Service</h3>
+            <p class="muted tiny">Medical emergencies don't wait. Neither do we. Order anytime, day or night.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="page-contact" class="page hidden">
-      <div class="card">
-        <h2>Contact</h2>
-        <p class="muted">You can reach us using the information below.</p>
+      <div class="grid" style="grid-template-columns: 1fr 1.2fr; gap:30px;">
 
-        <div class="panel" style="margin-top:14px;">
-          <p style="margin:0; font-size:16px; font-weight:700;">Md Ahad Hasan Emon</p>
-          <p class="muted" style="margin:6px 0 0;">Pharmacist, Dhaka</p>
-          <p class="muted" style="margin:6px 0 0;">Mobile: 01700000000</p>
+        <div class="card">
+          <h2>Get in Touch</h2>
+          <p class="muted" style="margin-bottom:30px;">We'd love to hear from you. Reach out via phone or email.</p>
+
+          <div class="panel" style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+            <div style="font-size:24px;">📍</div>
+            <div>
+              <div style="font-weight:700;">Head Office</div>
+              <div class="muted tiny">Uttara 10, Dhaka-1213, Bangladesh</div>
+            </div>
+          </div>
+
+          <div class="panel" style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+            <div style="font-size:24px;">📞</div>
+            <div>
+              <div style="font-weight:700;">Phone</div>
+              <div class="muted tiny">01984989208</div>
+            </div>
+          </div>
+
+          <div class="panel" style="display:flex; gap:16px; align-items:center;">
+            <div style="font-size:24px;">✉️</div>
+            <div>
+              <div style="font-weight:700;">Email</div>
+              <div class="muted tiny">raselofficial89@gmail.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Send us a Message</h3>
+          <form id="contactForm" class="form" style="max-width:100%;">
+            <label>
+              Your Name
+              <input type="text" name="from_name" placeholder="John Doe" required />
+            </label>
+            <label>
+              Email Address
+              <input type="email" name="email_id" placeholder="john@example.com" required />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="4" placeholder="How can we help you?" style="resize:vertical;"></textarea>
+            </label>
+
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
         </div>
       </div>
     </section>
@@ -237,11 +605,39 @@
   </main>
 
   <footer class="footer">
-    <span class="muted tiny">E-Pharmacy Web App • HTML/CSS/JS Demo</span>
+    <span>Copyright © ACOS E-Pharmacy-2026</span>
   </footer>
 
   <div id="toast" class="toast hidden"></div>
 
+  <!-- Edit Medicine Modal -->
+  <div id="editMedModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3>Edit Medicine</h3>
+      <form id="editMedForm" class="form">
+        <input type="hidden" id="edit-id" />
+        <label>Name <input type="text" id="edit-name" required /></label>
+        <label>Category
+          <select id="edit-cat">
+            <option value="General">General</option>
+            <option value="Baby Care">Baby Care</option>
+            <option value="Personal Care">Personal Care</option>
+          </select>
+        </label>
+        <div class="row">
+          <label>Price <input type="number" id="edit-price" required /></label>
+          <label>Stock <input type="number" id="edit-stock" required /></label>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button type="button" class="btn btn-ghost" id="btnCancelEdit">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Logic -->
   <script src="app.js"></script>
 </body>
+
 </html>

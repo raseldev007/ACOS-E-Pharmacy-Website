@@ -1,0 +1,555 @@
+/* --- MODERN ADMIN DASHBOARD REDESIGN --- */
+
+/* Wrapper */
+.admin-dashboard-panel {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex;
+    /* Removed !important */
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Stats Row */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.stat-card-modern {
+    background: rgba(31, 32, 54, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    opacity: 0.8;
+}
+
+.stat-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.stat-content h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--txt-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-content .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 5px;
+}
+
+/* Main Layout Grid */
+.admin-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 1000px) {
+    .admin-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-tabs {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .admin-tab-btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    /* Stacking for Order Cards */
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 10px;
+    }
+
+    .order-meta {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
+
+    .order-actions {
+        flex-direction: column;
+    }
+
+    .btn-action-sm {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Section Cards */
+.admin-card-section {
+    background: rgba(31, 32, 54, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.admin-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-header-row h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Filter Bar Redesign */
+.filter-bar-modern {
+    display: flex;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filter-bar-modern input,
+.filter-bar-modern select {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 30, 46, 0.6);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.filter-bar-modern input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.filter-bar-modern input:focus,
+.filter-bar-modern select:focus {
+    background: rgba(30, 30, 46, 0.9);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(246, 70, 104, 0.2);
+}
+
+/* Fix for Dropdown Options (Dark Mode) */
+.filter-bar-modern select option {
+    background-color: #1e1e2e;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Inventory Form Styles (Consistent with Filter Bar) */
+#adminInventoryForm input,
+#adminInventoryForm select {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 30, 46, 0.6);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+    width: 100%;
+    /* Ensure full width in sidebar */
+}
+
+#adminInventoryForm input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+#adminInventoryForm input:focus,
+#adminInventoryForm select:focus {
+    background: rgba(30, 30, 46, 0.9);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(246, 70, 104, 0.2);
+}
+
+/* Fix for Dropdown Options (Dark Mode) */
+#adminInventoryForm select option {
+    background-color: #1e1e2e;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Force Full Width for Admin Orders */
+#adminOrderList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.order-card-modern {
+    width: 100%;
+    box-sizing: border-box;
+    /* Ensure padding doesn't overflow */
+}
+
+/* Order Cards Redesign */
+/* --- Premium Order Card Redesign --- */
+.order-card-modern {
+    background: linear-gradient(145deg, rgba(30, 30, 46, 0.7) 0%, rgba(20, 20, 35, 0.8) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.order-card-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.order-card-modern:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.order-card-modern:hover::before {
+    opacity: 1;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.order-id {
+    font-family: 'Courier New', monospace;
+    font-weight: 800;
+    font-size: 18px;
+    background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.order-badges {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.status-pill {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.status-pill.pending {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.status-pill.approved {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.status-pill.shipped {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.status-pill.cancelled {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.status-pill.verified {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-pill.unverified {
+    background: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-pill.failed {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.order-items {
+    font-size: 15px;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.order-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #bbb;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.order-meta span:last-child {
+    color: #fff;
+    font-size: 15px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.order-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 0;
+    border-top: none;
+}
+
+.btn-action-sm {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-action-sm:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-action-sm.primary {
+    background: rgba(246, 70, 104, 0.1);
+    border-color: rgba(246, 70, 104, 0.3);
+    color: var(--primary);
+}
+
+.btn-action-sm.primary:hover {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(246, 70, 104, 0.4);
+}
+
+
+
+/* --- Admin Tabs --- */
+.admin-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.admin-tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--txt-muted);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-tab-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(246, 70, 104, 0.4);
+    border: none;
+}
+
+/* User List Grid */
+.user-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.user-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.user-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Activity Log Timeline */
+.timeline-item {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 16px;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--secondary);
+    box-shadow: 0 0 8px rgba(254, 150, 119, 0.4);
+}
+
+.timeline-content {
+    font-size: 13px;
+}
+
+.timeline-time {
+    font-size: 11px;
+    color: var(--txt-light);
+    margin-top: 4px;
+}
